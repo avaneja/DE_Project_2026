@@ -27,7 +27,7 @@
 | Member 3 | Aarush Dogra| 2501010003| AaarushDogra|
 | Member 4 |Shivam Kumar | 2501010428| shivam-k1029|
 
-**Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+**Team No.:** 105 · **Section:** E · **Repository URL:** https://github.com/avaneja/DE_Project_2026.git
 
 ---
 
