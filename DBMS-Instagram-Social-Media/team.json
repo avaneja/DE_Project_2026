@@ -1,0 +1,25 @@
+{
+  "team_number": "105",
+  "group_lead": {
+    "name": "Aayush Ruparelia",
+    "enrollment_no": "2501010010",
+    "github": "aayush-tech2055"
+  },
+  "members": [
+    {
+      "name": "Avaneja Rikhta",
+      "enrollment_no": "2501010105",
+      "github": "avaneja"
+    },
+    {
+      "name": "Aarush Dogra",
+      "enrollment_no": "2501010003",
+      "github": "AaarushDogra"
+    },
+    {
+      "name": "Shivam Kumar",
+      "enrollment_no": "2501010428",
+      "github": "shivam-k1029"
+    }
+  ]
+}
