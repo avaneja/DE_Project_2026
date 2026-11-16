@@ -65,6 +65,7 @@ The following foreign-key relationships are used in my database:
 | post_hashtags | post_id | posts(post_id) |
 | post_hashtags | hashtag_id | hashtags(hashtag_id) |
 | stories | user_id | users(user_id) |
+| post_media | post_id | posts(post_id) |
 
 The comments table also has a relationship with itself because a comment can be a reply to another comment.
 
@@ -187,21 +188,22 @@ The database now contains more than 1.1 million records across all nine tables.
 
 ## 7. Data Validation
 
-After importing the CSV files, I performed several checks to make sure the data was loaded correctly and the relationships between tables were working as expected.
+After importing the CSV files into PostgreSQL, I performed validation checks to verify that the data was loaded correctly and that the relationships between tables were maintained.
 
-Some of the checks I performed include:
+The validation checks included:
 
 1. Checking whether posts are connected to existing users.
-2. Checking whether comments and likes refer to valid users and posts.
-3. Checking whether follow relationships refer to existing users.
-4. Checking whether post hashtags are connected to valid posts and hashtags.
-5. Checking whether stories belong to existing users.
-6. Checking whether replies are connected to existing parent comments.
-7. Checking for duplicate usernames, hashtags and email addresses.
-8. Checking for invalid values, such as negative follower counts and media positions.
-9. Comparing the like and comment counts stored in posts with the actual records.
+2. Checking whether comments refer to valid posts and users.
+3. Checking whether likes refer to valid users and posts.
+4. Checking whether follow relationships refer to existing users.
+5. Checking whether post hashtags are connected to valid posts and hashtags.
+6. Checking whether post media records are connected to existing posts.
+7. Checking whether stories belong to existing users.
+8. Checking whether replies are connected to valid parent comments.
 
-These checks helped me understand the quality of the imported data and identify any records that may need further investigation. I did not modify the original dataset during these checks.
+The foreign-key validation queries returned zero invalid references for these checks. This indicates that the checked relationships were maintained correctly after importing the data.
+
+Additional data-quality checks, such as identifying duplicate values, negative numeric values, and differences between stored like/comment counts and actual records, can be performed for further validation.
 
 ## 8. Schema Design Summary
 

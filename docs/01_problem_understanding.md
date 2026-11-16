@@ -69,10 +69,26 @@ The main requirements are:
 
 These requirements help define what information the database needs to store and how its tables should be connected.
 
-## 7. Expected Outcome
+## 7. Assumptions and Business Rules
 
-By the end of this project, I expect to have a working PostgreSQL database with all the required tables and their relationships.
+The database design is based on the following assumptions and business rules:
 
-I should be able to store and retrieve information from different tables using SQL queries. I also want to get a better understanding of how a real-world social media database works and how different types of data are connected.
+1. **User Identification:** Each user is uniquely identified by a `user_id`. Usernames and email addresses are stored as part of the user's profile information.
 
-Through this project, I hope to improve my practical knowledge of PostgreSQL, SQL queries and database management.
+2. **User Activity:** A user can create multiple posts, comments, and stories. Each post, comment, and story is associated with a specific user.
+
+3. **Posts and Interactions:** Each post belongs to one user and can receive multiple likes and comments from different users.
+
+4. **Following System:** A user can follow multiple users and can also have multiple followers. The `follows` table stores the follower, followee, and the status of their relationship. A user cannot have duplicate records for the same follower-followee pair.
+
+5. **Hashtags:** A post can contain multiple hashtags, and the same hashtag can be used in multiple posts.
+
+6. **Post Media:** A post can contain multiple media items. Each media item is associated with a post and has a position to maintain its order.
+
+7. **Comments and Replies:** A comment belongs to a post and is created by a user. Comments can also have replies, which are connected to their parent comment using `parent_comment_id`.
+
+8. **Stories:** Each story belongs to a user and contains an expiry time to represent when the story should no longer be active.
+
+9. **Data Integrity:** Primary keys and foreign keys are used to maintain relationships between tables and prevent invalid references.
+
+These assumptions define the expected relationships and rules used while designing the Instagram database schema.
