@@ -1,0 +1,96 @@
+=== R11 run 1 ===
+Limit  (cost=2544.88..2544.93 rows=20 width=56) (actual time=5.182..5.184 rows=20.00 loops=1)
+  Buffers: shared hit=1284
+  ->  Sort  (cost=2544.88..2545.20 rows=127 width=56) (actual time=5.182..5.183 rows=20.00 loops=1)
+        Sort Key: (round(((sum((p.like_count + p.comment_count)))::numeric / (NULLIF(u.followers_count, 0))::numeric), 3)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=1284
+        ->  GroupAggregate  (cost=2537.38..2541.50 rows=127 width=56) (actual time=4.937..5.119 rows=426.00 loops=1)
+              Group Key: u.user_id
+              Buffers: shared hit=1281
+              ->  Sort  (cost=2537.38..2537.69 rows=127 width=32) (actual time=4.663..4.703 rows=2259.00 loops=1)
+                    Sort Key: u.user_id
+                    Sort Method: quicksort  Memory: 204kB
+                    Buffers: shared hit=1281
+                    ->  Hash Join  (cost=938.38..2532.94 rows=127 width=32) (actual time=2.953..4.475 rows=2259.00 loops=1)
+                          Hash Cond: (p.user_id = u.user_id)
+                          Buffers: shared hit=1278
+                          ->  Seq Scan on posts p  (cost=0.00..1542.00 rows=20020 width=12) (actual time=0.241..2.425 rows=19890.00 loops=1)
+                                Filter: (created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                                Rows Removed by Filter: 40110
+                                Buffers: shared hit=792
+                          ->  Hash  (cost=936.00..936.00 rows=190 width=24) (actual time=1.446..1.446 rows=448.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 33kB
+                                Buffers: shared hit=486
+                                ->  Seq Scan on users u  (cost=0.00..936.00 rows=190 width=24) (actual time=0.003..1.421 rows=448.00 loops=1)
+                                      Filter: ((followers_count >= 20) AND ((account_type)::text = 'CREATOR'::text))
+                                      Rows Removed by Filter: 29552
+                                      Buffers: shared hit=486
+Planning:
+  Buffers: shared hit=163
+Planning Time: 0.356 ms
+Execution Time: 5.216 ms
+=== R11 run 2 ===
+Limit  (cost=2544.88..2544.93 rows=20 width=56) (actual time=5.069..5.070 rows=20.00 loops=1)
+  Buffers: shared hit=1284
+  ->  Sort  (cost=2544.88..2545.20 rows=127 width=56) (actual time=5.068..5.069 rows=20.00 loops=1)
+        Sort Key: (round(((sum((p.like_count + p.comment_count)))::numeric / (NULLIF(u.followers_count, 0))::numeric), 3)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=1284
+        ->  GroupAggregate  (cost=2537.38..2541.50 rows=127 width=56) (actual time=4.832..5.012 rows=426.00 loops=1)
+              Group Key: u.user_id
+              Buffers: shared hit=1281
+              ->  Sort  (cost=2537.38..2537.69 rows=127 width=32) (actual time=4.816..4.857 rows=2259.00 loops=1)
+                    Sort Key: u.user_id
+                    Sort Method: quicksort  Memory: 204kB
+                    Buffers: shared hit=1281
+                    ->  Hash Join  (cost=938.38..2532.94 rows=127 width=32) (actual time=3.093..4.627 rows=2259.00 loops=1)
+                          Hash Cond: (p.user_id = u.user_id)
+                          Buffers: shared hit=1278
+                          ->  Seq Scan on posts p  (cost=0.00..1542.00 rows=20020 width=12) (actual time=0.236..2.641 rows=19890.00 loops=1)
+                                Filter: (created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                                Rows Removed by Filter: 40110
+                                Buffers: shared hit=792
+                          ->  Hash  (cost=936.00..936.00 rows=190 width=24) (actual time=1.388..1.389 rows=448.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 33kB
+                                Buffers: shared hit=486
+                                ->  Seq Scan on users u  (cost=0.00..936.00 rows=190 width=24) (actual time=0.004..1.361 rows=448.00 loops=1)
+                                      Filter: ((followers_count >= 20) AND ((account_type)::text = 'CREATOR'::text))
+                                      Rows Removed by Filter: 29552
+                                      Buffers: shared hit=486
+Planning:
+  Buffers: shared hit=163
+Planning Time: 0.295 ms
+Execution Time: 5.096 ms
+=== R11 run 3 ===
+Limit  (cost=2544.88..2544.93 rows=20 width=56) (actual time=4.978..4.980 rows=20.00 loops=1)
+  Buffers: shared hit=1284
+  ->  Sort  (cost=2544.88..2545.20 rows=127 width=56) (actual time=4.978..4.979 rows=20.00 loops=1)
+        Sort Key: (round(((sum((p.like_count + p.comment_count)))::numeric / (NULLIF(u.followers_count, 0))::numeric), 3)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=1284
+        ->  GroupAggregate  (cost=2537.38..2541.50 rows=127 width=56) (actual time=4.692..4.914 rows=426.00 loops=1)
+              Group Key: u.user_id
+              Buffers: shared hit=1281
+              ->  Sort  (cost=2537.38..2537.69 rows=127 width=32) (actual time=4.675..4.723 rows=2259.00 loops=1)
+                    Sort Key: u.user_id
+                    Sort Method: quicksort  Memory: 204kB
+                    Buffers: shared hit=1281
+                    ->  Hash Join  (cost=938.38..2532.94 rows=127 width=32) (actual time=2.869..4.465 rows=2259.00 loops=1)
+                          Hash Cond: (p.user_id = u.user_id)
+                          Buffers: shared hit=1278
+                          ->  Seq Scan on posts p  (cost=0.00..1542.00 rows=20020 width=12) (actual time=0.208..2.463 rows=19890.00 loops=1)
+                                Filter: (created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                                Rows Removed by Filter: 40110
+                                Buffers: shared hit=792
+                          ->  Hash  (cost=936.00..936.00 rows=190 width=24) (actual time=1.370..1.370 rows=448.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 33kB
+                                Buffers: shared hit=486
+                                ->  Seq Scan on users u  (cost=0.00..936.00 rows=190 width=24) (actual time=0.003..1.346 rows=448.00 loops=1)
+                                      Filter: ((followers_count >= 20) AND ((account_type)::text = 'CREATOR'::text))
+                                      Rows Removed by Filter: 29552
+                                      Buffers: shared hit=486
+Planning:
+  Buffers: shared hit=163
+Planning Time: 0.293 ms
+Execution Time: 5.003 ms
