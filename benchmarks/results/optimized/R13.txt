@@ -1,0 +1,60 @@
+=== R13 run 1 ===
+Nested Loop Anti Join  (cost=4.74..33.00 rows=3 width=24) (actual time=0.048..0.255 rows=12.00 loops=1)
+  Buffers: shared hit=42 read=1
+  ->  Bitmap Heap Scan on comments c  (cost=4.44..16.04 rows=3 width=24) (actual time=0.035..0.105 rows=13.00 loops=1)
+        Recheck Cond: (post_id = 59689)
+        Heap Blocks: exact=13
+        Buffers: shared hit=16
+        ->  Bitmap Index Scan on comments_post_created_idx  (cost=0.00..4.44 rows=3 width=0) (actual time=0.012..0.012 rows=13.00 loops=1)
+              Index Cond: (post_id = 59689)
+              Index Searches: 1
+              Buffers: shared hit=3
+  ->  Index Only Scan using comments_parent_idx on comments r  (cost=0.29..4.31 rows=1 width=4) (actual time=0.011..0.011 rows=0.08 loops=13)
+        Index Cond: (parent_comment_id = c.comment_id)
+        Heap Fetches: 0
+        Index Searches: 13
+        Buffers: shared hit=26 read=1
+Planning:
+  Buffers: shared hit=238
+Planning Time: 1.254 ms
+Execution Time: 0.318 ms
+=== R13 run 2 ===
+Nested Loop Anti Join  (cost=4.74..33.00 rows=3 width=24) (actual time=0.047..0.181 rows=12.00 loops=1)
+  Buffers: shared hit=43
+  ->  Bitmap Heap Scan on comments c  (cost=4.44..16.04 rows=3 width=24) (actual time=0.036..0.100 rows=13.00 loops=1)
+        Recheck Cond: (post_id = 59689)
+        Heap Blocks: exact=13
+        Buffers: shared hit=16
+        ->  Bitmap Index Scan on comments_post_created_idx  (cost=0.00..4.44 rows=3 width=0) (actual time=0.018..0.018 rows=13.00 loops=1)
+              Index Cond: (post_id = 59689)
+              Index Searches: 1
+              Buffers: shared hit=3
+  ->  Index Only Scan using comments_parent_idx on comments r  (cost=0.29..4.31 rows=1 width=4) (actual time=0.006..0.006 rows=0.08 loops=13)
+        Index Cond: (parent_comment_id = c.comment_id)
+        Heap Fetches: 0
+        Index Searches: 13
+        Buffers: shared hit=27
+Planning:
+  Buffers: shared hit=238
+Planning Time: 1.224 ms
+Execution Time: 0.241 ms
+=== R13 run 3 ===
+Nested Loop Anti Join  (cost=4.74..33.00 rows=3 width=24) (actual time=0.045..0.148 rows=12.00 loops=1)
+  Buffers: shared hit=43
+  ->  Bitmap Heap Scan on comments c  (cost=4.44..16.04 rows=3 width=24) (actual time=0.033..0.075 rows=13.00 loops=1)
+        Recheck Cond: (post_id = 59689)
+        Heap Blocks: exact=13
+        Buffers: shared hit=16
+        ->  Bitmap Index Scan on comments_post_created_idx  (cost=0.00..4.44 rows=3 width=0) (actual time=0.015..0.015 rows=13.00 loops=1)
+              Index Cond: (post_id = 59689)
+              Index Searches: 1
+              Buffers: shared hit=3
+  ->  Index Only Scan using comments_parent_idx on comments r  (cost=0.29..4.31 rows=1 width=4) (actual time=0.005..0.005 rows=0.08 loops=13)
+        Index Cond: (parent_comment_id = c.comment_id)
+        Heap Fetches: 0
+        Index Searches: 13
+        Buffers: shared hit=27
+Planning:
+  Buffers: shared hit=238
+Planning Time: 1.546 ms
+Execution Time: 0.205 ms

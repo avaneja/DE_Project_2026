@@ -1,0 +1,105 @@
+=== R17 run 1 ===
+Limit  (cost=1912.83..1912.95 rows=50 width=18) (actual time=3.212..3.216 rows=50.00 loops=1)
+  Buffers: shared hit=3723
+  ->  Sort  (cost=1912.83..1912.99 rows=66 width=18) (actual time=3.211..3.213 rows=50.00 loops=1)
+        Sort Key: p.like_count DESC
+        Sort Method: top-N heapsort  Memory: 31kB
+        Buffers: shared hit=3723
+        ->  Nested Loop  (cost=170.81..1910.83 rows=66 width=18) (actual time=0.282..3.167 rows=392.00 loops=1)
+              Buffers: shared hit=3720
+              ->  Hash Join  (cost=170.52..1105.79 rows=653 width=12) (actual time=0.265..2.039 rows=1129.00 loops=1)
+                    Hash Cond: (p.user_id = u.user_id)
+                    Buffers: shared hit=333
+                    ->  Index Scan using posts_created_idx on posts p  (cost=0.29..919.84 rows=5988 width=12) (actual time=0.008..1.388 rows=5996.00 loops=1)
+                          Index Cond: ((created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                          Filter: ((post_type)::text = 'REEL'::text)
+                          Rows Removed by Filter: 13894
+                          Index Searches: 1
+                          Buffers: shared hit=313
+                    ->  Hash  (cost=129.34..129.34 rows=3271 width=4) (actual time=0.251..0.251 rows=3271.00 loops=1)
+                          Buckets: 4096  Batches: 1  Memory Usage: 147kB
+                          Buffers: shared hit=20
+                          ->  Index Only Scan using users_creator_idx on users u  (cost=0.28..129.34 rows=3271 width=4) (actual time=0.005..0.141 rows=3271.00 loops=1)
+                                Heap Fetches: 0
+                                Index Searches: 1
+                                Buffers: shared hit=20
+              ->  Index Scan using post_media_pkey on post_media pm  (cost=0.29..1.23 rows=1 width=10) (actual time=0.001..0.001 rows=0.35 loops=1129)
+                    Index Cond: ((post_id = p.post_id) AND ("position" = 1))
+                    Filter: (duration_sec > '60'::numeric)
+                    Rows Removed by Filter: 1
+                    Index Searches: 1129
+                    Buffers: shared hit=3387
+Planning:
+  Buffers: shared hit=348
+Planning Time: 0.847 ms
+Execution Time: 3.240 ms
+=== R17 run 2 ===
+Limit  (cost=1912.83..1912.95 rows=50 width=18) (actual time=3.500..3.503 rows=50.00 loops=1)
+  Buffers: shared hit=3723
+  ->  Sort  (cost=1912.83..1912.99 rows=66 width=18) (actual time=3.499..3.501 rows=50.00 loops=1)
+        Sort Key: p.like_count DESC
+        Sort Method: top-N heapsort  Memory: 31kB
+        Buffers: shared hit=3723
+        ->  Nested Loop  (cost=170.81..1910.83 rows=66 width=18) (actual time=0.273..3.452 rows=392.00 loops=1)
+              Buffers: shared hit=3720
+              ->  Hash Join  (cost=170.52..1105.79 rows=653 width=12) (actual time=0.262..2.234 rows=1129.00 loops=1)
+                    Hash Cond: (p.user_id = u.user_id)
+                    Buffers: shared hit=333
+                    ->  Index Scan using posts_created_idx on posts p  (cost=0.29..919.84 rows=5988 width=12) (actual time=0.007..1.538 rows=5996.00 loops=1)
+                          Index Cond: ((created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                          Filter: ((post_type)::text = 'REEL'::text)
+                          Rows Removed by Filter: 13894
+                          Index Searches: 1
+                          Buffers: shared hit=313
+                    ->  Hash  (cost=129.34..129.34 rows=3271 width=4) (actual time=0.249..0.249 rows=3271.00 loops=1)
+                          Buckets: 4096  Batches: 1  Memory Usage: 147kB
+                          Buffers: shared hit=20
+                          ->  Index Only Scan using users_creator_idx on users u  (cost=0.28..129.34 rows=3271 width=4) (actual time=0.005..0.140 rows=3271.00 loops=1)
+                                Heap Fetches: 0
+                                Index Searches: 1
+                                Buffers: shared hit=20
+              ->  Index Scan using post_media_pkey on post_media pm  (cost=0.29..1.23 rows=1 width=10) (actual time=0.001..0.001 rows=0.35 loops=1129)
+                    Index Cond: ((post_id = p.post_id) AND ("position" = 1))
+                    Filter: (duration_sec > '60'::numeric)
+                    Rows Removed by Filter: 1
+                    Index Searches: 1129
+                    Buffers: shared hit=3387
+Planning:
+  Buffers: shared hit=348
+Planning Time: 0.790 ms
+Execution Time: 3.525 ms
+=== R17 run 3 ===
+Limit  (cost=1912.83..1912.95 rows=50 width=18) (actual time=3.141..3.144 rows=50.00 loops=1)
+  Buffers: shared hit=3723
+  ->  Sort  (cost=1912.83..1912.99 rows=66 width=18) (actual time=3.140..3.142 rows=50.00 loops=1)
+        Sort Key: p.like_count DESC
+        Sort Method: top-N heapsort  Memory: 31kB
+        Buffers: shared hit=3723
+        ->  Nested Loop  (cost=170.81..1910.83 rows=66 width=18) (actual time=0.275..3.101 rows=392.00 loops=1)
+              Buffers: shared hit=3720
+              ->  Hash Join  (cost=170.52..1105.79 rows=653 width=12) (actual time=0.264..2.001 rows=1129.00 loops=1)
+                    Hash Cond: (p.user_id = u.user_id)
+                    Buffers: shared hit=333
+                    ->  Index Scan using posts_created_idx on posts p  (cost=0.29..919.84 rows=5988 width=12) (actual time=0.007..1.358 rows=5996.00 loops=1)
+                          Index Cond: ((created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                          Filter: ((post_type)::text = 'REEL'::text)
+                          Rows Removed by Filter: 13894
+                          Index Searches: 1
+                          Buffers: shared hit=313
+                    ->  Hash  (cost=129.34..129.34 rows=3271 width=4) (actual time=0.252..0.252 rows=3271.00 loops=1)
+                          Buckets: 4096  Batches: 1  Memory Usage: 147kB
+                          Buffers: shared hit=20
+                          ->  Index Only Scan using users_creator_idx on users u  (cost=0.28..129.34 rows=3271 width=4) (actual time=0.005..0.141 rows=3271.00 loops=1)
+                                Heap Fetches: 0
+                                Index Searches: 1
+                                Buffers: shared hit=20
+              ->  Index Scan using post_media_pkey on post_media pm  (cost=0.29..1.23 rows=1 width=10) (actual time=0.001..0.001 rows=0.35 loops=1129)
+                    Index Cond: ((post_id = p.post_id) AND ("position" = 1))
+                    Filter: (duration_sec > '60'::numeric)
+                    Rows Removed by Filter: 1
+                    Index Searches: 1129
+                    Buffers: shared hit=3387
+Planning:
+  Buffers: shared hit=348
+Planning Time: 0.676 ms
+Execution Time: 3.165 ms

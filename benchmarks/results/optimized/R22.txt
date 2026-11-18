@@ -1,0 +1,54 @@
+=== R22 run 1 ===
+Limit  (cost=1539.20..1539.26 rows=25 width=36) (actual time=1.899..1.902 rows=25.00 loops=1)
+  Buffers: shared hit=1143 read=10
+  ->  Sort  (cost=1535.45..1543.38 rows=3175 width=36) (actual time=1.799..1.854 rows=1525.00 loops=1)
+        Sort Key: created_at DESC
+        Sort Method: quicksort  Memory: 311kB
+        Buffers: shared hit=1143 read=10
+        ->  Bitmap Heap Scan on comments  (cost=60.95..1351.70 rows=3175 width=36) (actual time=0.565..1.483 rows=3046.00 loops=1)
+              Recheck Cond: is_hidden
+              Heap Blocks: exact=1140
+              Buffers: shared hit=1140 read=10
+              ->  Bitmap Index Scan on comments_hidden_created_idx  (cost=0.00..60.16 rows=3175 width=0) (actual time=0.497..0.497 rows=3046.00 loops=1)
+                    Index Searches: 1
+                    Buffers: shared read=10
+Planning:
+  Buffers: shared hit=143
+Planning Time: 0.257 ms
+Execution Time: 1.917 ms
+=== R22 run 2 ===
+Limit  (cost=1539.20..1539.26 rows=25 width=36) (actual time=3.803..3.805 rows=25.00 loops=1)
+  Buffers: shared hit=1153
+  ->  Sort  (cost=1535.45..1543.38 rows=3175 width=36) (actual time=3.734..3.777 rows=1525.00 loops=1)
+        Sort Key: created_at DESC
+        Sort Method: quicksort  Memory: 311kB
+        Buffers: shared hit=1153
+        ->  Bitmap Heap Scan on comments  (cost=60.95..1351.70 rows=3175 width=36) (actual time=0.520..2.889 rows=3046.00 loops=1)
+              Recheck Cond: is_hidden
+              Heap Blocks: exact=1140
+              Buffers: shared hit=1150
+              ->  Bitmap Index Scan on comments_hidden_created_idx  (cost=0.00..60.16 rows=3175 width=0) (actual time=0.261..0.261 rows=3046.00 loops=1)
+                    Index Searches: 1
+                    Buffers: shared hit=10
+Planning:
+  Buffers: shared hit=143
+Planning Time: 0.715 ms
+Execution Time: 3.834 ms
+=== R22 run 3 ===
+Limit  (cost=1539.20..1539.26 rows=25 width=36) (actual time=3.272..3.274 rows=25.00 loops=1)
+  Buffers: shared hit=1153
+  ->  Sort  (cost=1535.45..1543.38 rows=3175 width=36) (actual time=3.194..3.243 rows=1525.00 loops=1)
+        Sort Key: created_at DESC
+        Sort Method: quicksort  Memory: 311kB
+        Buffers: shared hit=1153
+        ->  Bitmap Heap Scan on comments  (cost=60.95..1351.70 rows=3175 width=36) (actual time=0.330..2.582 rows=3046.00 loops=1)
+              Recheck Cond: is_hidden
+              Heap Blocks: exact=1140
+              Buffers: shared hit=1150
+              ->  Bitmap Index Scan on comments_hidden_created_idx  (cost=0.00..60.16 rows=3175 width=0) (actual time=0.217..0.217 rows=3046.00 loops=1)
+                    Index Searches: 1
+                    Buffers: shared hit=10
+Planning:
+  Buffers: shared hit=143
+Planning Time: 0.720 ms
+Execution Time: 3.302 ms
