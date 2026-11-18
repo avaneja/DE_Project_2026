@@ -1,0 +1,48 @@
+=== R18 run 1 ===
+GroupAggregate  (cost=1982.09..1988.84 rows=300 width=18) (actual time=4.616..4.810 rows=120.00 loops=1)
+  Group Key: ((created_at)::date), post_type
+  Buffers: shared hit=775
+  ->  Sort  (cost=1982.09..1982.84 rows=300 width=10) (actual time=4.609..4.680 rows=3296.00 loops=1)
+        Sort Key: ((created_at)::date), post_type
+        Sort Method: quicksort  Memory: 200kB
+        Buffers: shared hit=775
+        ->  Seq Scan on posts  (cost=0.00..1969.75 rows=300 width=10) (actual time=3.691..4.211 rows=3296.00 loops=1)
+              Filter: (((created_at)::date >= '2026-06-01'::date) AND ((created_at)::date <= '2026-06-30'::date))
+              Rows Removed by Filter: 56704
+              Buffers: shared hit=769
+Planning:
+  Buffers: shared hit=100
+Planning Time: 0.141 ms
+Execution Time: 4.838 ms
+=== R18 run 2 ===
+GroupAggregate  (cost=1982.09..1988.84 rows=300 width=18) (actual time=4.631..4.815 rows=120.00 loops=1)
+  Group Key: ((created_at)::date), post_type
+  Buffers: shared hit=775
+  ->  Sort  (cost=1982.09..1982.84 rows=300 width=10) (actual time=4.625..4.692 rows=3296.00 loops=1)
+        Sort Key: ((created_at)::date), post_type
+        Sort Method: quicksort  Memory: 200kB
+        Buffers: shared hit=775
+        ->  Seq Scan on posts  (cost=0.00..1969.75 rows=300 width=10) (actual time=3.814..4.254 rows=3296.00 loops=1)
+              Filter: (((created_at)::date >= '2026-06-01'::date) AND ((created_at)::date <= '2026-06-30'::date))
+              Rows Removed by Filter: 56704
+              Buffers: shared hit=769
+Planning:
+  Buffers: shared hit=100
+Planning Time: 0.176 ms
+Execution Time: 4.841 ms
+=== R18 run 3 ===
+GroupAggregate  (cost=1982.09..1988.84 rows=300 width=18) (actual time=4.876..5.070 rows=120.00 loops=1)
+  Group Key: ((created_at)::date), post_type
+  Buffers: shared hit=775
+  ->  Sort  (cost=1982.09..1982.84 rows=300 width=10) (actual time=4.868..4.939 rows=3296.00 loops=1)
+        Sort Key: ((created_at)::date), post_type
+        Sort Method: quicksort  Memory: 200kB
+        Buffers: shared hit=775
+        ->  Seq Scan on posts  (cost=0.00..1969.75 rows=300 width=10) (actual time=3.954..4.476 rows=3296.00 loops=1)
+              Filter: (((created_at)::date >= '2026-06-01'::date) AND ((created_at)::date <= '2026-06-30'::date))
+              Rows Removed by Filter: 56704
+              Buffers: shared hit=769
+Planning:
+  Buffers: shared hit=100
+Planning Time: 0.141 ms
+Execution Time: 5.096 ms

@@ -1,0 +1,78 @@
+=== R01 run 1 ===
+Limit  (cost=1551.12..1551.19 rows=30 width=60) (actual time=14.172..14.177 rows=30.00 loops=1)
+  Buffers: shared hit=776
+  ->  Sort  (cost=1551.12..1551.51 rows=158 width=60) (actual time=14.170..14.173 rows=30.00 loops=1)
+        Sort Key: p.created_at DESC
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=776
+        ->  Hash Join  (cost=22.71..1546.45 rows=158 width=60) (actual time=0.106..14.050 rows=235.00 loops=1)
+              Hash Cond: (p.user_id = f.followee_id)
+              Buffers: shared hit=773
+              ->  Seq Scan on posts p  (cost=0.00..1369.00 rows=58864 width=60) (actual time=0.018..9.796 rows=58805.00 loops=1)
+                    Filter: (NOT is_archived)
+                    Rows Removed by Filter: 1195
+                    Buffers: shared hit=769
+              ->  Hash  (cost=22.60..22.60 rows=9 width=4) (actual time=0.062..0.063 rows=14.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=4
+                    ->  Index Scan using follows_pkey on follows f  (cost=0.42..22.60 rows=9 width=4) (actual time=0.043..0.049 rows=14.00 loops=1)
+                          Index Cond: (follower_id = 1042)
+                          Filter: ((status)::text = 'ACCEPTED'::text)
+                          Index Searches: 1
+                          Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=248
+Planning Time: 0.812 ms
+Execution Time: 14.257 ms
+=== R01 run 2 ===
+Limit  (cost=1551.12..1551.19 rows=30 width=60) (actual time=13.544..13.549 rows=30.00 loops=1)
+  Buffers: shared hit=776
+  ->  Sort  (cost=1551.12..1551.51 rows=158 width=60) (actual time=13.543..13.546 rows=30.00 loops=1)
+        Sort Key: p.created_at DESC
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=776
+        ->  Hash Join  (cost=22.71..1546.45 rows=158 width=60) (actual time=0.060..13.391 rows=235.00 loops=1)
+              Hash Cond: (p.user_id = f.followee_id)
+              Buffers: shared hit=773
+              ->  Seq Scan on posts p  (cost=0.00..1369.00 rows=58864 width=60) (actual time=0.014..10.323 rows=58805.00 loops=1)
+                    Filter: (NOT is_archived)
+                    Rows Removed by Filter: 1195
+                    Buffers: shared hit=769
+              ->  Hash  (cost=22.60..22.60 rows=9 width=4) (actual time=0.035..0.036 rows=14.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=4
+                    ->  Index Scan using follows_pkey on follows f  (cost=0.42..22.60 rows=9 width=4) (actual time=0.025..0.027 rows=14.00 loops=1)
+                          Index Cond: (follower_id = 1042)
+                          Filter: ((status)::text = 'ACCEPTED'::text)
+                          Index Searches: 1
+                          Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=248
+Planning Time: 0.991 ms
+Execution Time: 13.626 ms
+=== R01 run 3 ===
+Limit  (cost=1551.12..1551.19 rows=30 width=60) (actual time=10.214..10.218 rows=30.00 loops=1)
+  Buffers: shared hit=776
+  ->  Sort  (cost=1551.12..1551.51 rows=158 width=60) (actual time=10.213..10.215 rows=30.00 loops=1)
+        Sort Key: p.created_at DESC
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=776
+        ->  Hash Join  (cost=22.71..1546.45 rows=158 width=60) (actual time=0.070..10.130 rows=235.00 loops=1)
+              Hash Cond: (p.user_id = f.followee_id)
+              Buffers: shared hit=773
+              ->  Seq Scan on posts p  (cost=0.00..1369.00 rows=58864 width=60) (actual time=0.011..7.203 rows=58805.00 loops=1)
+                    Filter: (NOT is_archived)
+                    Rows Removed by Filter: 1195
+                    Buffers: shared hit=769
+              ->  Hash  (cost=22.60..22.60 rows=9 width=4) (actual time=0.046..0.047 rows=14.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=4
+                    ->  Index Scan using follows_pkey on follows f  (cost=0.42..22.60 rows=9 width=4) (actual time=0.037..0.039 rows=14.00 loops=1)
+                          Index Cond: (follower_id = 1042)
+                          Filter: ((status)::text = 'ACCEPTED'::text)
+                          Index Searches: 1
+                          Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=248
+Planning Time: 0.792 ms
+Execution Time: 10.274 ms

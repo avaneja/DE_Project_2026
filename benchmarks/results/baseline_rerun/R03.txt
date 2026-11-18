@@ -1,0 +1,27 @@
+=== R03 run 1 ===
+Seq Scan on users  (cost=0.00..861.00 rows=1 width=43) (actual time=0.046..3.393 rows=1.00 loops=1)
+  Filter: ((username)::text = 'karan_singh217'::text)
+  Rows Removed by Filter: 29999
+  Buffers: shared hit=486
+Planning:
+  Buffers: shared hit=81
+Planning Time: 0.506 ms
+Execution Time: 3.433 ms
+=== R03 run 2 ===
+Seq Scan on users  (cost=0.00..861.00 rows=1 width=43) (actual time=0.042..2.538 rows=1.00 loops=1)
+  Filter: ((username)::text = 'karan_singh217'::text)
+  Rows Removed by Filter: 29999
+  Buffers: shared hit=486
+Planning:
+  Buffers: shared hit=81
+Planning Time: 0.315 ms
+Execution Time: 2.569 ms
+=== R03 run 3 ===
+Seq Scan on users  (cost=0.00..861.00 rows=1 width=43) (actual time=0.028..2.968 rows=1.00 loops=1)
+  Filter: ((username)::text = 'karan_singh217'::text)
+  Rows Removed by Filter: 29999
+  Buffers: shared hit=486
+Planning:
+  Buffers: shared hit=81
+Planning Time: 0.276 ms
+Execution Time: 2.991 ms

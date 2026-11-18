@@ -1,0 +1,114 @@
+=== R15 run 1 ===
+Sort  (cost=6877.44..6886.23 rows=3515 width=32) (actual time=55.697..55.705 rows=136.00 loops=1)
+  Sort Key: u.user_id
+  Sort Method: quicksort  Memory: 32kB
+  Buffers: shared hit=2412
+  ->  HashAggregate  (cost=6626.26..6670.42 rows=3515 width=32) (actual time=55.485..55.646 rows=136.00 loops=1)
+        Group Key: u.user_id
+        Filter: (u.followers_count <> count(f.follower_id))
+        Batches: 1  Memory Usage: 345kB
+        Rows Removed by Filter: 3135
+        Buffers: shared hit=2409
+        ->  Hash Right Join  (cost=687.74..6478.75 rows=29501 width=28) (actual time=3.863..46.163 rows=75254.00 loops=1)
+              Hash Cond: (f.followee_id = u.user_id)
+              Buffers: shared hit=2409
+              ->  Seq Scan on follows f  (cost=0.00..5133.35 rows=250503 width=8) (actual time=0.022..19.018 rows=250729.00 loops=1)
+                    Filter: ((status)::text = 'ACCEPTED'::text)
+                    Rows Removed by Filter: 7859
+                    Buffers: shared hit=1901
+              ->  Hash  (cost=643.58..643.58 rows=3533 width=24) (actual time=3.812..3.816 rows=3271.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 217kB
+                    Buffers: shared hit=508
+                    ->  Bitmap Heap Scan on users u  (cost=113.02..643.58 rows=3533 width=24) (actual time=0.545..3.254 rows=3271.00 loops=1)
+                          Recheck Cond: (is_verified OR ((account_type)::text = 'CREATOR'::text))
+                          Heap Blocks: exact=484
+                          Buffers: shared hit=508
+                          ->  BitmapOr  (cost=113.02..113.02 rows=3565 width=0) (actual time=0.423..0.423 rows=0.00 loops=1)
+                                Buffers: shared hit=24
+                                ->  Bitmap Index Scan on users_rank_idx  (cost=0.00..14.62 rows=294 width=0) (actual time=0.063..0.063 rows=294.00 loops=1)
+                                      Index Cond: (is_verified = true)
+                                      Index Searches: 1
+                                      Buffers: shared hit=5
+                                ->  Bitmap Index Scan on users_creator_idx  (cost=0.00..96.64 rows=3271 width=0) (actual time=0.359..0.360 rows=3271.00 loops=1)
+                                      Index Searches: 1
+                                      Buffers: shared hit=19
+Planning:
+  Buffers: shared hit=281
+Planning Time: 1.876 ms
+Execution Time: 55.881 ms
+=== R15 run 2 ===
+Sort  (cost=6877.44..6886.23 rows=3515 width=32) (actual time=35.492..35.498 rows=136.00 loops=1)
+  Sort Key: u.user_id
+  Sort Method: quicksort  Memory: 32kB
+  Buffers: shared hit=2412
+  ->  HashAggregate  (cost=6626.26..6670.42 rows=3515 width=32) (actual time=35.344..35.474 rows=136.00 loops=1)
+        Group Key: u.user_id
+        Filter: (u.followers_count <> count(f.follower_id))
+        Batches: 1  Memory Usage: 345kB
+        Rows Removed by Filter: 3135
+        Buffers: shared hit=2409
+        ->  Hash Right Join  (cost=687.74..6478.75 rows=29501 width=28) (actual time=1.111..29.369 rows=75254.00 loops=1)
+              Hash Cond: (f.followee_id = u.user_id)
+              Buffers: shared hit=2409
+              ->  Seq Scan on follows f  (cost=0.00..5133.35 rows=250503 width=8) (actual time=0.004..11.712 rows=250729.00 loops=1)
+                    Filter: ((status)::text = 'ACCEPTED'::text)
+                    Rows Removed by Filter: 7859
+                    Buffers: shared hit=1901
+              ->  Hash  (cost=643.58..643.58 rows=3533 width=24) (actual time=1.100..1.102 rows=3271.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 217kB
+                    Buffers: shared hit=508
+                    ->  Bitmap Heap Scan on users u  (cost=113.02..643.58 rows=3533 width=24) (actual time=0.200..0.907 rows=3271.00 loops=1)
+                          Recheck Cond: (is_verified OR ((account_type)::text = 'CREATOR'::text))
+                          Heap Blocks: exact=484
+                          Buffers: shared hit=508
+                          ->  BitmapOr  (cost=113.02..113.02 rows=3565 width=0) (actual time=0.167..0.168 rows=0.00 loops=1)
+                                Buffers: shared hit=24
+                                ->  Bitmap Index Scan on users_rank_idx  (cost=0.00..14.62 rows=294 width=0) (actual time=0.016..0.016 rows=294.00 loops=1)
+                                      Index Cond: (is_verified = true)
+                                      Index Searches: 1
+                                      Buffers: shared hit=5
+                                ->  Bitmap Index Scan on users_creator_idx  (cost=0.00..96.64 rows=3271 width=0) (actual time=0.151..0.151 rows=3271.00 loops=1)
+                                      Index Searches: 1
+                                      Buffers: shared hit=19
+Planning:
+  Buffers: shared hit=281
+Planning Time: 0.537 ms
+Execution Time: 35.551 ms
+=== R15 run 3 ===
+Sort  (cost=6877.44..6886.23 rows=3515 width=32) (actual time=29.659..29.666 rows=136.00 loops=1)
+  Sort Key: u.user_id
+  Sort Method: quicksort  Memory: 32kB
+  Buffers: shared hit=2412
+  ->  HashAggregate  (cost=6626.26..6670.42 rows=3515 width=32) (actual time=29.525..29.644 rows=136.00 loops=1)
+        Group Key: u.user_id
+        Filter: (u.followers_count <> count(f.follower_id))
+        Batches: 1  Memory Usage: 345kB
+        Rows Removed by Filter: 3135
+        Buffers: shared hit=2409
+        ->  Hash Right Join  (cost=687.74..6478.75 rows=29501 width=28) (actual time=0.867..24.173 rows=75254.00 loops=1)
+              Hash Cond: (f.followee_id = u.user_id)
+              Buffers: shared hit=2409
+              ->  Seq Scan on follows f  (cost=0.00..5133.35 rows=250503 width=8) (actual time=0.003..9.729 rows=250729.00 loops=1)
+                    Filter: ((status)::text = 'ACCEPTED'::text)
+                    Rows Removed by Filter: 7859
+                    Buffers: shared hit=1901
+              ->  Hash  (cost=643.58..643.58 rows=3533 width=24) (actual time=0.858..0.861 rows=3271.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 217kB
+                    Buffers: shared hit=508
+                    ->  Bitmap Heap Scan on users u  (cost=113.02..643.58 rows=3533 width=24) (actual time=0.122..0.686 rows=3271.00 loops=1)
+                          Recheck Cond: (is_verified OR ((account_type)::text = 'CREATOR'::text))
+                          Heap Blocks: exact=484
+                          Buffers: shared hit=508
+                          ->  BitmapOr  (cost=113.02..113.02 rows=3565 width=0) (actual time=0.091..0.091 rows=0.00 loops=1)
+                                Buffers: shared hit=24
+                                ->  Bitmap Index Scan on users_rank_idx  (cost=0.00..14.62 rows=294 width=0) (actual time=0.014..0.014 rows=294.00 loops=1)
+                                      Index Cond: (is_verified = true)
+                                      Index Searches: 1
+                                      Buffers: shared hit=5
+                                ->  Bitmap Index Scan on users_creator_idx  (cost=0.00..96.64 rows=3271 width=0) (actual time=0.077..0.077 rows=3271.00 loops=1)
+                                      Index Searches: 1
+                                      Buffers: shared hit=19
+Planning:
+  Buffers: shared hit=281
+Planning Time: 0.493 ms
+Execution Time: 29.710 ms
