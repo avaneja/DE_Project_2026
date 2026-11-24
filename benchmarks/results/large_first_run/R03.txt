@@ -1,0 +1,27 @@
+=== R03 run 1 ===
+Index Scan using users_username_uq on users  (cost=0.42..8.44 rows=1 width=43) (actual time=0.739..0.741 rows=1.00 loops=1)
+  Index Cond: ((username)::text = 'karan_singh217'::text)
+  Index Searches: 1
+  Buffers: shared read=4
+Planning:
+  Buffers: shared hit=161 read=5
+Planning Time: 1.630 ms
+Execution Time: 0.805 ms
+=== R03 run 2 ===
+Index Scan using users_username_uq on users  (cost=0.42..8.44 rows=1 width=43) (actual time=0.081..0.082 rows=1.00 loops=1)
+  Index Cond: ((username)::text = 'karan_singh217'::text)
+  Index Searches: 1
+  Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=166
+Planning Time: 1.353 ms
+Execution Time: 0.157 ms
+=== R03 run 3 ===
+Index Scan using users_username_uq on users  (cost=0.42..8.44 rows=1 width=43) (actual time=0.053..0.054 rows=1.00 loops=1)
+  Index Cond: ((username)::text = 'karan_singh217'::text)
+  Index Searches: 1
+  Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=166
+Planning Time: 1.177 ms
+Execution Time: 0.108 ms

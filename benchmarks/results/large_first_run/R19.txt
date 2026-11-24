@@ -1,0 +1,126 @@
+=== R19 run 1 ===
+Sort  (cost=273422.97..273435.87 rows=5160 width=37) (actual time=221.993..222.106 rows=4879.00 loops=1)
+  Sort Key: ((SubPlan 3)) DESC
+  Sort Method: quicksort  Memory: 454kB
+  Buffers: shared hit=145887 read=32748 written=8
+  ->  Index Only Scan using users_verified_idx on users u  (cost=0.28..273104.78 rows=5160 width=37) (actual time=9.683..221.459 rows=4879.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=145884 read=32748 written=8
+        SubPlan 2
+          ->  Result  (cost=1.25..1.26 rows=1 width=8) (actual time=0.016..0.016 rows=1.00 loops=4879)
+                Buffers: shared hit=11639 read=2999
+                InitPlan 1
+                  ->  Limit  (cost=0.43..1.25 rows=1 width=8) (actual time=0.016..0.016 rows=0.79 loops=4879)
+                        Buffers: shared hit=11639 read=2999
+                        ->  Index Only Scan using posts_user_created_idx on posts p  (cost=0.43..4.53 rows=5 width=8) (actual time=0.016..0.016 rows=0.79 loops=4879)
+                              Index Cond: ((user_id = u.user_id) AND (created_at IS NOT NULL))
+                              Heap Fetches: 0
+                              Index Searches: 4879
+                              Buffers: shared hit=11639 read=2999
+        SubPlan 3
+          ->  Aggregate  (cost=51.62..51.63 rows=1 width=8) (actual time=0.029..0.029 rows=1.00 loops=4879)
+                Buffers: shared hit=134242 read=29721 written=8
+                ->  Nested Loop  (cost=4.90..51.53 rows=35 width=0) (actual time=0.007..0.028 rows=31.11 loops=4879)
+                      Buffers: shared hit=134242 read=29721 written=8
+                      ->  Bitmap Heap Scan on posts p_1  (cost=4.47..24.26 rows=5 width=4) (actual time=0.005..0.011 rows=4.47 loops=4879)
+                            Recheck Cond: (user_id = u.user_id)
+                            Heap Blocks: exact=21654
+                            Buffers: shared hit=25056 read=11325 written=5
+                            ->  Bitmap Index Scan on posts_user_created_idx  (cost=0.00..4.46 rows=5 width=0) (actual time=0.001..0.001 rows=4.47 loops=4879)
+                                  Index Cond: (user_id = u.user_id)
+                                  Index Searches: 4879
+                                  Buffers: shared hit=14637 read=90
+                      ->  Index Only Scan using likes_post_created_idx on likes l  (cost=0.43..5.37 rows=8 width=4) (actual time=0.003..0.003 rows=6.96 loops=21809)
+                            Index Cond: (post_id = p_1.post_id)
+                            Heap Fetches: 0
+                            Index Searches: 21809
+                            Buffers: shared hit=109186 read=18396 written=3
+Planning:
+  Buffers: shared hit=418 read=9
+Planning Time: 0.651 ms
+Execution Time: 222.227 ms
+=== R19 run 2 ===
+Sort  (cost=273422.97..273435.87 rows=5160 width=37) (actual time=153.185..153.303 rows=4879.00 loops=1)
+  Sort Key: ((SubPlan 3)) DESC
+  Sort Method: quicksort  Memory: 454kB
+  Buffers: shared hit=146783 read=31852
+  ->  Index Only Scan using users_verified_idx on users u  (cost=0.28..273104.78 rows=5160 width=37) (actual time=10.573..152.658 rows=4879.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=146780 read=31852
+        SubPlan 2
+          ->  Result  (cost=1.25..1.26 rows=1 width=8) (actual time=0.002..0.002 rows=1.00 loops=4879)
+                Buffers: shared hit=11820 read=2818
+                InitPlan 1
+                  ->  Limit  (cost=0.43..1.25 rows=1 width=8) (actual time=0.002..0.002 rows=0.79 loops=4879)
+                        Buffers: shared hit=11820 read=2818
+                        ->  Index Only Scan using posts_user_created_idx on posts p  (cost=0.43..4.53 rows=5 width=8) (actual time=0.002..0.002 rows=0.79 loops=4879)
+                              Index Cond: ((user_id = u.user_id) AND (created_at IS NOT NULL))
+                              Heap Fetches: 0
+                              Index Searches: 4879
+                              Buffers: shared hit=11820 read=2818
+        SubPlan 3
+          ->  Aggregate  (cost=51.62..51.63 rows=1 width=8) (actual time=0.029..0.029 rows=1.00 loops=4879)
+                Buffers: shared hit=134959 read=29004
+                ->  Nested Loop  (cost=4.90..51.53 rows=35 width=0) (actual time=0.007..0.028 rows=31.11 loops=4879)
+                      Buffers: shared hit=134959 read=29004
+                      ->  Bitmap Heap Scan on posts p_1  (cost=4.47..24.26 rows=5 width=4) (actual time=0.004..0.011 rows=4.47 loops=4879)
+                            Recheck Cond: (user_id = u.user_id)
+                            Heap Blocks: exact=21654
+                            Buffers: shared hit=24212 read=12169
+                            ->  Bitmap Index Scan on posts_user_created_idx  (cost=0.00..4.46 rows=5 width=0) (actual time=0.001..0.001 rows=4.47 loops=4879)
+                                  Index Cond: (user_id = u.user_id)
+                                  Index Searches: 4879
+                                  Buffers: shared hit=14639 read=88
+                      ->  Index Only Scan using likes_post_created_idx on likes l  (cost=0.43..5.37 rows=8 width=4) (actual time=0.003..0.003 rows=6.96 loops=21809)
+                            Index Cond: (post_id = p_1.post_id)
+                            Heap Fetches: 0
+                            Index Searches: 21809
+                            Buffers: shared hit=110747 read=16835
+Planning:
+  Buffers: shared hit=376 read=51
+Planning Time: 1.339 ms
+Execution Time: 153.438 ms
+=== R19 run 3 ===
+Sort  (cost=273422.97..273435.87 rows=5160 width=37) (actual time=151.200..151.311 rows=4879.00 loops=1)
+  Sort Key: ((SubPlan 3)) DESC
+  Sort Method: quicksort  Memory: 454kB
+  Buffers: shared hit=146555 read=32080
+  ->  Index Only Scan using users_verified_idx on users u  (cost=0.28..273104.78 rows=5160 width=37) (actual time=10.302..150.663 rows=4879.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=146552 read=32080
+        SubPlan 2
+          ->  Result  (cost=1.25..1.26 rows=1 width=8) (actual time=0.002..0.002 rows=1.00 loops=4879)
+                Buffers: shared hit=11820 read=2818
+                InitPlan 1
+                  ->  Limit  (cost=0.43..1.25 rows=1 width=8) (actual time=0.002..0.002 rows=0.79 loops=4879)
+                        Buffers: shared hit=11820 read=2818
+                        ->  Index Only Scan using posts_user_created_idx on posts p  (cost=0.43..4.53 rows=5 width=8) (actual time=0.002..0.002 rows=0.79 loops=4879)
+                              Index Cond: ((user_id = u.user_id) AND (created_at IS NOT NULL))
+                              Heap Fetches: 0
+                              Index Searches: 4879
+                              Buffers: shared hit=11820 read=2818
+        SubPlan 3
+          ->  Aggregate  (cost=51.62..51.63 rows=1 width=8) (actual time=0.029..0.029 rows=1.00 loops=4879)
+                Buffers: shared hit=134731 read=29232
+                ->  Nested Loop  (cost=4.90..51.53 rows=35 width=0) (actual time=0.007..0.028 rows=31.11 loops=4879)
+                      Buffers: shared hit=134731 read=29232
+                      ->  Bitmap Heap Scan on posts p_1  (cost=4.47..24.26 rows=5 width=4) (actual time=0.004..0.011 rows=4.47 loops=4879)
+                            Recheck Cond: (user_id = u.user_id)
+                            Heap Blocks: exact=21654
+                            Buffers: shared hit=23945 read=12436
+                            ->  Bitmap Index Scan on posts_user_created_idx  (cost=0.00..4.46 rows=5 width=0) (actual time=0.001..0.001 rows=4.47 loops=4879)
+                                  Index Cond: (user_id = u.user_id)
+                                  Index Searches: 4879
+                                  Buffers: shared hit=14639 read=88
+                      ->  Index Only Scan using likes_post_created_idx on likes l  (cost=0.43..5.37 rows=8 width=4) (actual time=0.003..0.003 rows=6.96 loops=21809)
+                            Index Cond: (post_id = p_1.post_id)
+                            Heap Fetches: 0
+                            Index Searches: 21809
+                            Buffers: shared hit=110786 read=16796
+Planning:
+  Buffers: shared hit=386 read=41
+Planning Time: 0.862 ms
+Execution Time: 151.436 ms

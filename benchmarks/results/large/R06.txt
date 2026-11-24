@@ -1,0 +1,36 @@
+=== R06 run 1 ===
+Limit  (cost=0.42..47.51 rows=20 width=38) (actual time=0.024..1.822 rows=20.00 loops=1)
+  Buffers: shared hit=277 read=204 dirtied=204 written=195
+  ->  Index Scan using users_rank_idx on users  (cost=0.42..59517.29 rows=25282 width=38) (actual time=0.023..1.820 rows=20.00 loops=1)
+        Filter: (((username)::text ~~* 'karan%'::text) OR ((full_name)::text ~~* '%karan sharma%'::text))
+        Rows Removed by Filter: 501
+        Index Searches: 1
+        Buffers: shared hit=277 read=204 dirtied=204 written=195
+Planning:
+  Buffers: shared hit=184
+Planning Time: 0.308 ms
+Execution Time: 1.833 ms
+=== R06 run 2 ===
+Limit  (cost=0.42..47.51 rows=20 width=38) (actual time=0.015..0.689 rows=20.00 loops=1)
+  Buffers: shared hit=453
+  ->  Index Scan using users_rank_idx on users  (cost=0.42..59517.29 rows=25282 width=38) (actual time=0.015..0.687 rows=20.00 loops=1)
+        Filter: (((username)::text ~~* 'karan%'::text) OR ((full_name)::text ~~* '%karan sharma%'::text))
+        Rows Removed by Filter: 501
+        Index Searches: 1
+        Buffers: shared hit=453
+Planning:
+  Buffers: shared hit=184
+Planning Time: 0.324 ms
+Execution Time: 0.698 ms
+=== R06 run 3 ===
+Limit  (cost=0.42..47.51 rows=20 width=38) (actual time=0.014..0.558 rows=20.00 loops=1)
+  Buffers: shared hit=453
+  ->  Index Scan using users_rank_idx on users  (cost=0.42..59517.29 rows=25282 width=38) (actual time=0.013..0.557 rows=20.00 loops=1)
+        Filter: (((username)::text ~~* 'karan%'::text) OR ((full_name)::text ~~* '%karan sharma%'::text))
+        Rows Removed by Filter: 501
+        Index Searches: 1
+        Buffers: shared hit=453
+Planning:
+  Buffers: shared hit=184
+Planning Time: 0.288 ms
+Execution Time: 0.566 ms

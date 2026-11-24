@@ -1,0 +1,30 @@
+=== R22 run 1 ===
+Limit  (cost=2388.35..2428.15 rows=25 width=36) (actual time=4.009..4.080 rows=25.00 loops=1)
+  Buffers: shared hit=84 read=1446
+  ->  Index Scan using comments_hidden_created_idx on comments  (cost=0.29..102368.56 rows=64300 width=36) (actual time=0.012..4.044 rows=1525.00 loops=1)
+        Index Searches: 1
+        Buffers: shared hit=84 read=1446
+Planning:
+  Buffers: shared hit=143
+Planning Time: 0.258 ms
+Execution Time: 4.090 ms
+=== R22 run 2 ===
+Limit  (cost=2388.35..2428.15 rows=25 width=36) (actual time=1.670..1.696 rows=25.00 loops=1)
+  Buffers: shared hit=1530
+  ->  Index Scan using comments_hidden_created_idx on comments  (cost=0.29..102368.56 rows=64300 width=36) (actual time=0.005..1.651 rows=1525.00 loops=1)
+        Index Searches: 1
+        Buffers: shared hit=1530
+Planning:
+  Buffers: shared hit=143
+Planning Time: 0.237 ms
+Execution Time: 1.705 ms
+=== R22 run 3 ===
+Limit  (cost=2388.35..2428.15 rows=25 width=36) (actual time=1.637..1.663 rows=25.00 loops=1)
+  Buffers: shared hit=1530
+  ->  Index Scan using comments_hidden_created_idx on comments  (cost=0.29..102368.56 rows=64300 width=36) (actual time=0.005..1.621 rows=1525.00 loops=1)
+        Index Searches: 1
+        Buffers: shared hit=1530
+Planning:
+  Buffers: shared hit=143
+Planning Time: 0.224 ms
+Execution Time: 1.672 ms

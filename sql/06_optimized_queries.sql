@@ -17,12 +17,21 @@ BEGIN;
 
 -- @R01
 -- Home feed: the latest 30 posts from accounts user 1042 follows
+-- REWRITTEN (Phase 5, large data): with ~250 posts per followee the plain join read
+-- every post of every followee (1,990 rows) and top-N sorted them. LATERAL takes only
+-- the newest 30 of each followee straight from posts_user_created_idx (in index order),
+-- then keeps the 30 newest overall. The global top 30 is always inside the union of the
+-- per-followee top 30s, so the result is identical (verified with EXCEPT on both datasets).
 SELECT p.post_id, p.user_id, p.post_type, p.caption, p.like_count, p.created_at
 FROM follows f
-JOIN posts p ON p.user_id = f.followee_id
+CROSS JOIN LATERAL (
+    SELECT post_id, user_id, post_type, caption, like_count, created_at
+    FROM posts
+    WHERE user_id = f.followee_id AND NOT is_archived
+    ORDER BY created_at DESC
+    LIMIT 30) p
 WHERE f.follower_id = 1042
   AND f.status = 'ACCEPTED'
-  AND NOT p.is_archived
 ORDER BY p.created_at DESC
 LIMIT 30;
 

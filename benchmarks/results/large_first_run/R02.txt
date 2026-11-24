@@ -1,0 +1,36 @@
+=== R02 run 1 ===
+Limit  (cost=0.43..24.51 rows=5 width=26) (actual time=0.053..0.134 rows=12.00 loops=1)
+  Buffers: shared hit=2 read=13
+  ->  Index Scan using posts_user_created_idx on posts  (cost=0.43..24.51 rows=5 width=26) (actual time=0.052..0.132 rows=12.00 loops=1)
+        Index Cond: (user_id = 217)
+        Filter: (NOT is_archived)
+        Index Searches: 1
+        Buffers: shared hit=2 read=13
+Planning:
+  Buffers: shared hit=136
+Planning Time: 0.650 ms
+Execution Time: 0.163 ms
+=== R02 run 2 ===
+Limit  (cost=0.43..24.51 rows=5 width=26) (actual time=0.035..0.059 rows=12.00 loops=1)
+  Buffers: shared hit=15
+  ->  Index Scan using posts_user_created_idx on posts  (cost=0.43..24.51 rows=5 width=26) (actual time=0.034..0.057 rows=12.00 loops=1)
+        Index Cond: (user_id = 217)
+        Filter: (NOT is_archived)
+        Index Searches: 1
+        Buffers: shared hit=15
+Planning:
+  Buffers: shared hit=136
+Planning Time: 0.917 ms
+Execution Time: 0.113 ms
+=== R02 run 3 ===
+Limit  (cost=0.43..24.51 rows=5 width=26) (actual time=0.014..0.032 rows=12.00 loops=1)
+  Buffers: shared hit=15
+  ->  Index Scan using posts_user_created_idx on posts  (cost=0.43..24.51 rows=5 width=26) (actual time=0.013..0.030 rows=12.00 loops=1)
+        Index Cond: (user_id = 217)
+        Filter: (NOT is_archived)
+        Index Searches: 1
+        Buffers: shared hit=15
+Planning:
+  Buffers: shared hit=136
+Planning Time: 0.545 ms
+Execution Time: 0.054 ms

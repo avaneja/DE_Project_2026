@@ -1,0 +1,45 @@
+=== R09 run 1 ===
+Nested Loop  (cost=0.86..29.36 rows=2 width=29) (actual time=0.636..13.345 rows=67.00 loops=1)
+  Buffers: shared hit=138 read=200 written=117
+  ->  Index Scan using follows_followee_status_created_idx on follows f  (cost=0.43..12.47 rows=2 width=12) (actual time=0.472..2.124 rows=67.00 loops=1)
+        Index Cond: ((followee_id = 338) AND ((status)::text = 'PENDING'::text))
+        Index Searches: 1
+        Buffers: shared hit=1 read=69 written=40
+  ->  Index Scan using users_pkey on users u  (cost=0.42..8.44 rows=1 width=21) (actual time=0.166..0.166 rows=1.00 loops=67)
+        Index Cond: (user_id = f.follower_id)
+        Index Searches: 67
+        Buffers: shared hit=137 read=131 written=77
+Planning:
+  Buffers: shared hit=343
+Planning Time: 0.914 ms
+Execution Time: 13.383 ms
+=== R09 run 2 ===
+Nested Loop  (cost=0.86..29.36 rows=2 width=29) (actual time=0.043..0.547 rows=67.00 loops=1)
+  Buffers: shared hit=338
+  ->  Index Scan using follows_followee_status_created_idx on follows f  (cost=0.43..12.47 rows=2 width=12) (actual time=0.032..0.155 rows=67.00 loops=1)
+        Index Cond: ((followee_id = 338) AND ((status)::text = 'PENDING'::text))
+        Index Searches: 1
+        Buffers: shared hit=70
+  ->  Index Scan using users_pkey on users u  (cost=0.42..8.44 rows=1 width=21) (actual time=0.006..0.006 rows=1.00 loops=67)
+        Index Cond: (user_id = f.follower_id)
+        Index Searches: 67
+        Buffers: shared hit=268
+Planning:
+  Buffers: shared hit=343
+Planning Time: 1.102 ms
+Execution Time: 0.580 ms
+=== R09 run 3 ===
+Nested Loop  (cost=0.86..29.36 rows=2 width=29) (actual time=0.034..0.683 rows=67.00 loops=1)
+  Buffers: shared hit=338
+  ->  Index Scan using follows_followee_status_created_idx on follows f  (cost=0.43..12.47 rows=2 width=12) (actual time=0.020..0.163 rows=67.00 loops=1)
+        Index Cond: ((followee_id = 338) AND ((status)::text = 'PENDING'::text))
+        Index Searches: 1
+        Buffers: shared hit=70
+  ->  Index Scan using users_pkey on users u  (cost=0.42..8.44 rows=1 width=21) (actual time=0.007..0.007 rows=1.00 loops=67)
+        Index Cond: (user_id = f.follower_id)
+        Index Searches: 67
+        Buffers: shared hit=268
+Planning:
+  Buffers: shared hit=343
+Planning Time: 1.453 ms
+Execution Time: 0.715 ms

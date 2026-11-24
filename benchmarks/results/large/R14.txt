@@ -1,0 +1,75 @@
+=== R14 run 1 ===
+Merge Anti Join  (cost=163.05..171.50 rows=40 width=4) (actual time=1.411..1.456 rows=580.00 loops=1)
+  Merge Cond: (f.follower_id = b.followee_id)
+  Buffers: shared hit=4 read=584
+  ->  Sort  (cost=162.62..162.72 rows=40 width=4) (actual time=1.402..1.417 rows=580.00 loops=1)
+        Sort Key: f.follower_id
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=1 read=583
+        ->  Bitmap Heap Scan on follows f  (cost=4.84..161.56 rows=40 width=4) (actual time=0.134..1.378 rows=580.00 loops=1)
+              Recheck Cond: ((followee_id = 217) AND ((status)::text = 'ACCEPTED'::text))
+              Heap Blocks: exact=578
+              Buffers: shared hit=1 read=583
+              ->  Bitmap Index Scan on follows_followee_status_created_idx  (cost=0.00..4.83 rows=40 width=0) (actual time=0.063..0.063 rows=580.00 loops=1)
+                    Index Cond: ((followee_id = 217) AND ((status)::text = 'ACCEPTED'::text))
+                    Index Searches: 1
+                    Buffers: shared hit=1 read=5
+  ->  Index Only Scan using follows_pkey on follows b  (cost=0.43..8.64 rows=12 width=4) (actual time=0.008..0.008 rows=7.00 loops=1)
+        Index Cond: (follower_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=3 read=1
+Planning:
+  Buffers: shared hit=143 read=15
+Planning Time: 0.312 ms
+Execution Time: 1.514 ms
+=== R14 run 2 ===
+Merge Anti Join  (cost=163.05..171.50 rows=40 width=4) (actual time=0.745..0.778 rows=580.00 loops=1)
+  Merge Cond: (f.follower_id = b.followee_id)
+  Buffers: shared hit=588
+  ->  Sort  (cost=162.62..162.72 rows=40 width=4) (actual time=0.739..0.750 rows=580.00 loops=1)
+        Sort Key: f.follower_id
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=584
+        ->  Bitmap Heap Scan on follows f  (cost=4.84..161.56 rows=40 width=4) (actual time=0.106..0.721 rows=580.00 loops=1)
+              Recheck Cond: ((followee_id = 217) AND ((status)::text = 'ACCEPTED'::text))
+              Heap Blocks: exact=578
+              Buffers: shared hit=584
+              ->  Bitmap Index Scan on follows_followee_status_created_idx  (cost=0.00..4.83 rows=40 width=0) (actual time=0.058..0.058 rows=580.00 loops=1)
+                    Index Cond: ((followee_id = 217) AND ((status)::text = 'ACCEPTED'::text))
+                    Index Searches: 1
+                    Buffers: shared hit=6
+  ->  Index Only Scan using follows_pkey on follows b  (cost=0.43..8.64 rows=12 width=4) (actual time=0.005..0.005 rows=7.00 loops=1)
+        Index Cond: (follower_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=158
+Planning Time: 0.278 ms
+Execution Time: 0.830 ms
+=== R14 run 3 ===
+Merge Anti Join  (cost=163.05..171.50 rows=40 width=4) (actual time=0.658..0.713 rows=580.00 loops=1)
+  Merge Cond: (f.follower_id = b.followee_id)
+  Buffers: shared hit=588
+  ->  Sort  (cost=162.62..162.72 rows=40 width=4) (actual time=0.653..0.671 rows=580.00 loops=1)
+        Sort Key: f.follower_id
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=584
+        ->  Bitmap Heap Scan on follows f  (cost=4.84..161.56 rows=40 width=4) (actual time=0.061..0.635 rows=580.00 loops=1)
+              Recheck Cond: ((followee_id = 217) AND ((status)::text = 'ACCEPTED'::text))
+              Heap Blocks: exact=578
+              Buffers: shared hit=584
+              ->  Bitmap Index Scan on follows_followee_status_created_idx  (cost=0.00..4.83 rows=40 width=0) (actual time=0.035..0.035 rows=580.00 loops=1)
+                    Index Cond: ((followee_id = 217) AND ((status)::text = 'ACCEPTED'::text))
+                    Index Searches: 1
+                    Buffers: shared hit=6
+  ->  Index Only Scan using follows_pkey on follows b  (cost=0.43..8.64 rows=12 width=4) (actual time=0.004..0.004 rows=7.00 loops=1)
+        Index Cond: (follower_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=158
+Planning Time: 0.255 ms
+Execution Time: 0.764 ms
